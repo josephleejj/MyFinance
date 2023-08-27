@@ -14,7 +14,12 @@ const financeSchema = new Schema({
     amount: {
       type: Number,
       required: true
+    },
+    date: {
+      type: Date,
+      required: true
     }
+    
   }, { timestamps: true })
 
 module.exports = mongoose.model('Finance', financeSchema)

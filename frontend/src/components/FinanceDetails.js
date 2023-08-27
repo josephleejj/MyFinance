@@ -20,7 +20,7 @@ const FinanceDetails = ( {finance} ) => {
             <h4>{finance.description}</h4>
             <p><strong>Category:</strong> {finance.type}</p>
             <p><strong>Amount($):</strong> {finance.amount}</p>
-            <p>{finance.createdAt}</p>
+            <p><strong>Date:</strong> {new Date(finance.date).toLocaleDateString('en-gb')}</p>
             <span onClick={handleDeleteClick}>X</span>
         </div>
     )

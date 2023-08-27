@@ -8,6 +8,7 @@ const FinanceForm = () => {
     const[description, setDescription] = useState('')
     const[type, setType] = useState('')
     const[amount, setAmount] = useState('')
+    const[date, setDate] = useState(new Date())
     const[error, setError] = useState('')
     const [emptyFields, setEmptyFields] = useState([])
 
@@ -15,7 +16,7 @@ const FinanceForm = () => {
         // prevent default action which is refreshing
         event.preventDefault()
 
-        const finance = {description, type, amount}
+        const finance = {description, type, amount, date}
 
         const response = await fetch('/api/finances', {
             method: 'POST',
@@ -35,6 +36,7 @@ const FinanceForm = () => {
             setDescription('')
             setType('')
             setAmount('')
+            setDate(new Date())
             setError(null)
             setEmptyFields([])
             dispatch({type: 'CREATE_FINANCE', payload: json})
@@ -71,6 +73,14 @@ const FinanceForm = () => {
             onChange={(event) => setAmount(event.target.value)}
             value={amount}
             className={emptyFields.includes('Amount') ? 'error' : ''}
+            />
+
+            <label>Date:</label>
+            <input
+            type ="date"
+            onChange={(event) => setDate(event.target.value)}
+            value={date}
+            className={emptyFields.includes('Date') ? 'error' : ''}
             />
 
             <button>Add Finance</button>

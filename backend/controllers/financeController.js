@@ -27,7 +27,7 @@ const getFinance = async (req, res) => {
 
 // create a new finance
 const createFinance = async (req, res) => {
-    const {description, amount, type} = req.body
+    const {description, amount, type, date} = req.body
 
     let emptyFields = []
 
@@ -43,14 +43,19 @@ const createFinance = async (req, res) => {
       emptyFields.push('Amount')
     }
 
+    if (!date) {
+      emptyFields.push('Date')
+    }
+
     if (emptyFields.length > 0) {
       return res.status(404).json({ error: 'Please fill in all the fields', emptyFields})
     }
 
   // add to the database
   try {
-    const finance = await Finance.create({ description, amount, type })
+    const finance = await Finance.create({ description, amount, type, date })
     res.status(200).json(finance)
+    console.log('added into database')
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
